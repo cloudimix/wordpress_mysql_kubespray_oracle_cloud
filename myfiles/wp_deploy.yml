@@ -1,0 +1,21 @@
+---
+- name: WordPress + MySQL deployment on kubernetes cluster
+  hosts: localhost
+  become: yes
+  gather_facts: no
+  tasks:
+    - name: Requirements - pip
+      apt:
+        name: python3-pip
+        state: present
+
+    - name: Requirements - python kubernetes module
+      pip:
+        name: kubernetes
+        state: present
+
+    - name: Create kubernetes resources
+      k8s:
+        namespace: default
+        definition: "{{ lookup('kubernetes.core.kustomize', dir='k/') }}"
+        state: present
