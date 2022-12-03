@@ -1,8 +1,8 @@
 ---
 - name: Replace lines
   hosts: localhost
-  gather_facts: yes
-  become: no
+  gather_facts: true
+  become: false
   tasks:
     - name: Replace a private IP entry by "master-1" hostname in admin.conf
       lineinfile:
@@ -17,7 +17,7 @@
         dest: "{{artifacts_dir}}config"
 
     - name: Add a line in /etc/hosts
-      become: yes
+      become: true
       lineinfile:
         dest: /etc/hosts
         regexp: master-1

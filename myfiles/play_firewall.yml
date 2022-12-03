@@ -11,6 +11,6 @@
 
 - name: Firewall issues
   hosts: all
-  become: yes
+  become: true
   roles:
-      - geerlingguy.firewall
+    - geerlingguy.firewall
